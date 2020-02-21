@@ -6,60 +6,67 @@
 
 using namespace std;
 
+struct duomenys
+{
+    string v; // vardas
+    string p; // pavarde
+    double *C; // namu darbu pazymiu vektorius
+    double er; // egzamino rezultatas
+    double vid; // vidurkis namu darbu
+    double galv; // galutinis pazymys su vidurkiais
+    double galm; // galutinis pazymys su mediana
+    double med; // mediana
+    int n; // namu darbu sk
+};
+
 int main()
 {
+    duomenys d[1000];
     srand( time (NULL) );
-    int n, k=0, r=1;
-    string v[100], p[100];
-    double er[100], vid[100], galv[100], galm[100], med[100];
+    int k=0, r=1;   // r- papildomu mokiniu irasymui,  k- mokiniu skaicius
     while( r == 1)
     {
-        n = 0;
-        cout << "Koks jusu vardas?"<<endl;
-        cin >> v[k];
-        cout << "Kokia jusu pavarde?"<<endl;
-        cin >> p[k];
-        double *C;
-        C = new double [1];
+        d[k].n = 0;
+        cout << "Koks mokinio vardas?"<<endl;
+        cin >> d[k].v;
+        cout << "Kokia mokinio pavarde?"<<endl;
+        cin >> d[k].p;
         int s;
-        cout << "Jei norite pazymius generuoti atsitiktinai irasykite 1, o jei vesite patys, rasykite 0" << endl;
-        cin >> s;
-        if ( s == 1)
-        {
-            n=rand()%10+1;
-            delete C;
-            C = new double [n];
-            for (int j=0; j<n; j++)
-            {
-                C[n]=rand()%10+1;
-            }
-        }
-        else
-        {
-            cout << "Kokie jusu namu darbu rezultatai? Nuo 1 iki 10. Kai suvesite visus, irasykite bet koki simboli, kuris nera nuo 1 iki 10"<<endl;
-        cin >> C[n];
-        if( C[n] < 1 || C[n] > 10 )
-        {
-            cout << "Veskite tik skaicius nuo 1 iki 10" << endl;
-            delete C;
-            n--;
-        }
+        cout << "Jei norite namu darbu pazymius generuoti atsitiktinai irasykite 1, o jei vesite patys, rasykite 0" << endl;
         for(;;)
         {
-            n++;
-            double * t;
-            t = new double [n];
-            cin >> t[n];
-            if( t[n] > 0 && t[n] < 11 )
+            cin >> s;
+            if( s == 1 || s == 0) break;
+            else cout << "Irasykite tik 1 arba 0" << endl;
+        }
+        if ( s == 1)
+        {
+            d[k].n=rand()%10+1;
+            delete[] d[k].C;
+            d[k].C = new double [d[k].n+1];
+            for(int j=0; j<d[k].n; j++)
+                d[k].C[j]=rand()%10+1;
+        }
+        else if ( s == 0 )
+        {
+        cout << "Kokie jusu namu darbu rezultatai? Nuo 1 iki 10. Kai suvesite visus, irasykite bet koki simboli, kuris nera nuo 1 iki 10"<<endl;
+        for(;;)
+        {
+            double *t;
+            t = new double [d[k].n+1];
+            cin >> t[d[k].n];
+            if( t[d[k].n] > 0 && t[d[k].n] < 11 )
             {
-                for(int i=0; i<n; i++)
-                    t[i] = C[i];
-                delete[] C;
-                C = new double [n+1];
-                C = t;
+                for(int i=0; i<d[k].n; i++)
+                    t[i] = d[k].C[i];
+                delete[] d[k].C;
+                d[k].C = new double [d[k].n+1];
+                for(int i=0; i<=d[k].n; i++)
+                    d[k].C[i] = t[i];
                 delete[] t;
+                d[k].n++;
             }
-            else
+            else if( t[d[k].n] < 1 || t[d[k].n] > 10 )
             {
                 int x;
                 cin.clear();
@@ -67,53 +74,61 @@ int main()
                 cout << "Turit vesti tik skaicius nuo 1 iki 10, ar noresit pridet kita pazymi? Jei taip, veskite 1, jei ne - 0" << endl;
                 cin >> x;
                 if( x == 1)
-                {
                     cout << "Veskite tik skaicius nuo 1 iki 10" << endl;
-                    n--;
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                }
-                else break;
+                else if( x == 0) break;
+                else cout << "Ar noresit pridet kita pazymi? Jei taip, veskite 1, jei ne - 0" << endl;
             }
         }
         }
-        cout << "Kokie jusu egzamino rezultatai? Nuo 1 iki 10." << endl;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cin >> er[k];
-        while( er[k] < 1 || er[k] > 10 )
+        cout << "Jei norite egzamino pazymi generuoti atsitiktinai irasykite 1, o jei vesite patys, rasykite 0" << endl;
+        for(;;)
         {
-            cout << "Veskite tik skaicius nuo 1 iki 10" << endl;
-            cin >> er[k];
-        }
+            cin >> s;
+            if( s == 1 || s == 0) break;
+            else cout << "Irasykite tik 1 arba 0" << endl;
 
-        for( int i=0; i<n; i++ )
-            vid[k] += C[i];
-        vid[k] = (double)vid[k]/n;
-        galv[k] = 0.4*vid[k] + 0.6*er[k];
-        for (int i=0; i<n-1; i++)
+        }
+        if ( s == 1 )
+            d[k].er = rand()%10+1;
+        if ( s == 0 )
         {
-            for (int j=i+1; j<n; j++)
+            cout << "Koks jusu egzamino rezultatas? Nuo 1 iki 10." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin >> d[k].er;
+            while( d[k].er < 1 || d[k].er > 10 )
             {
-                if (C[i]>C[j])
+                cout << "Veskite tik skaicius nuo 1 iki 10" << endl;
+                cin >> d[k].er;
+            }
+        }
+        for( int i=0; i<d[k].n; i++ )
+            d[k].vid += d[k].C[i];
+        d[k].vid = (double)d[k].vid/d[k].n;
+        d[k].galv = 0.4*d[k].vid + 0.6*d[k].er;
+        for (int i=0; i<d[k].n-1; i++)
+        {
+            for (int j=i+1; j<d[k].n; j++)
+            {
+                if (d[k].C[i]>d[k].C[j])
                 {
-                    swap(C[i], C[j]);
+                    swap(d[k].C[i], d[k].C[j]);
                 }
             }
         }
         int a, b;
-        if ( n % 2 == 0 )
+        if ( d[k].n % 2 == 0 )
         {
-            a = n / 2;
-            b = n / 2 - 1;
-            med[k] = (C[a] + C[b]) * 1.0 / 2;
+            a = d[k].n / 2;
+            b = d[k].n / 2 - 1;
+            d[k].med = (d[k].C[a] + d[k].C[b]) * 1.0 / 2;
         }
         else
         {
-            a = n / 2;
-            med[k] = C[a];
+            a = d[k].n / 2;
+            d[k].med = d[k].C[a];
         }
-        galm[k] = 0.4*med[k] + 0.6*er[k];
+        d[k].galm = 0.4*d[k].med + 0.6*d[k].er;
         cout << "Ar norite prideti dar mokiniu? Irasykite 1, kad pridet, 0, jei tai paskutinis mokinys" << endl;
         cin >> r;
         if( r == 1)
@@ -127,17 +142,20 @@ int main()
         cin >> r;
         if( r == 1)
         {
+            for(int i=0; i<d[k].n; i++)
+                cout << "P" <<i<<"= "<<d[k].C[i]<< "   ";
+            cout<<endl;
             cout << "Pavarde            Vardas          Galutinis(Vid.)" << endl;
             cout << "--------------------------------------------------" << endl;
             for( int i=0; i<=k; i++)
-                cout << setw(19) << left << p[i] << setw(16) << v[i] << setw(5) << fixed << setprecision(2) << galv[i] << endl;
+                cout << setw(19) << left << d[i].p << setw(16) << d[i].v << setw(5) << fixed << setprecision(2) << d[i].galv << endl;
         }
         if( r == 2)
         {
             cout << "Pavarde            Vardas          Galutinis(Med.)" << endl;
             cout << "--------------------------------------------------" << endl;
             for( int i=0; i<=k; i++)
-                cout << setw(19) << left << p[i] << setw(16) << v[i] << setw(5) << fixed << setprecision(2) << galm[i] << endl;
+                cout << setw(19) << left << d[i].p << setw(16) << d[i].v << setw(5) << fixed << setprecision(2) << d[i].galm << endl;
         }
     }
     return 0;
