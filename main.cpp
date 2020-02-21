@@ -142,9 +142,6 @@ int main()
         cin >> r;
         if( r == 1)
         {
-            for(int i=0; i<d[k].n; i++)
-                cout << "P" <<i<<"= "<<d[k].C[i]<< "   ";
-            cout<<endl;
             cout << "Pavarde            Vardas          Galutinis(Vid.)" << endl;
             cout << "--------------------------------------------------" << endl;
             for( int i=0; i<=k; i++)
