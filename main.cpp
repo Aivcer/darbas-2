@@ -1,63 +1,7 @@
-#include <iostream>
-#include <limits>
-#include <iomanip>
-#include <algorithm>
-#include <time.h>
-#include <vector>
-#include <fstream>
-#include <limits>
+#include "struktura.h"
+#include "funkcijos.h"
 
 using namespace std;
-
-struct duomenys
-{
-    string v; // vardas
-    string p; // pavarde
-    vector<int> C; // namu darbu pazymiu vektorius
-    double er; // egzamino rezultatas
-    double visi; //visu pazymiu suma
-    //double galv; // galutinis pazymys su vidurkiais
-    //double galm; // galutinis pazymys su mediana
-    int n; // namu darbu sk
-
-};
-
-double mediana (vector<int> X)
-{
-  int a, b;
-  sort(X.begin(), X.end());
-  if (X.size()%2==0)
-  {
-    a=X.size()/2;
-    b=X.size()/2-1;
-    return (X[a]+X[b])*1.0/2;
-  }
-  else
-  {
-    a=X.size()/2;
-    return X[a];
-  }
-}
-
-double vidurkis (const vector<int> A)
-{
-  int visi=0;
-  for(int i=0; i<A.size(); i++)
-  {
-    visi+=A[i];
-  }
-  return visi*1.0/A.size();
-}
-
-bool rusiavimasV(const duomenys &a, const duomenys &b)
-{
-    return a.v < b.v;
-}
-
-bool rusiavimasP(const duomenys &a, const duomenys &b)
-{
-    return a.p < b.p;
-}
 
 int main()
 {
@@ -74,38 +18,41 @@ int main()
         }
     if( r == 0)
     {
-        ifstream faila("kursiokai1.txt");
-        faila.ignore(INT_MAX,'\n');
-        while( !faila.eof() )
+        try
         {
-            d.push_back(duomenys());
-            d[k].n = 0;
-            faila >> d[k].v;
-            faila >> d[k].p;
-            while ( !faila.fail() )
+            ifstream in ("kursiokai1.txt");
+            if (!in.good()) throw runtime_error("failas neegzistuoja \n");
+            faila.ignore(INT_MAX,'\n');
+            while( !faila.eof() )
             {
-                faila >> h;
-                if( h > 0 && h < 11 )
+                d.push_back(duomenys());
+                d[k].n = 0;
+                faila >> d[k].v;
+                faila >> d[k].p;
+                while ( !faila.fail() )
                 {
-                    d[k].C.push_back(h);
-                    d[k].n++;
+                    faila >> h;
+                    if( h > 0 && h < 11 )
+                    {
+                        d[k].C.push_back(h);
+                        d[k].n++;
+                    }
+                    if (faila.eof()) break;
                 }
-                if (faila.eof()) break;
+                d[k].n--;
+                d[k].er = d[k].C.back();
+                d[k].C.pop_back();
+                k++;
+                if (faila.eof())
+                {
+                    faila.ignore();
+                    break;
+                }
+                faila.clear();
             }
-            d[k].n--;
-            d[k].er = d[k].C.back();
-            d[k].C.pop_back();
-            k++;
-            if (faila.eof())
-            {
-                faila.ignore();
-                break;
-            }
-            faila.clear();
-        }
-        faila.close();
-        k--;
-    }
+            faila.close();
+            k--;
+    }}
     while( r == 1)
     {
         d.push_back(duomenys());
