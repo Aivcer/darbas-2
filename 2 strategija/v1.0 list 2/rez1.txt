@@ -1,0 +1,22 @@
+Pradedamas skaiciavimas su 1000 elementais
+1000 elementu nuskaitymas uztruko: 0.034031 s
+1000 elementu rusiavimas uztruko: 0.00201 s
+
+Pradedamas skaiciavimas su 10000 elementais
+10000 elementu nuskaitymas uztruko: 0.323306 s
+10000 elementu rusiavimas uztruko: 0.017016 s
+
+Pradedamas skaiciavimas su 100000 elementais
+100000 elementu nuskaitymas uztruko: 3.23393 s
+100000 elementu rusiavimas uztruko: 0.168318 s
+
+Pradedamas skaiciavimas su 1000000 elementais
+1000000 elementu nuskaitymas uztruko: 32.9459 s
+1000000 elementu rusiavimas uztruko: 1.73258 s
+
+Pradedamas skaiciavimas su 10000000 elementais
+terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+Process returned 3 (0x3)   execution time : 438.806 s
+Press any key to continue.
