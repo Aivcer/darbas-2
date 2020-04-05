@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.17)
+project(oop)
+
+add_executable(oop main.cpp)
+
+add_library(
+	files
+	funkcijos.h
+	funkcijos.cpp
+)
+
+target_link_libraries(oop files)
