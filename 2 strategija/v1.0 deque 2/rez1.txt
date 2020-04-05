@@ -1,0 +1,14 @@
+Pradedamas skaiciavimas su 1000 elementais
+1000 elementu nuskaitymas uztruko: 0.034031 s
+1000 elementu rusiavimas uztruko: 0.026024 s
+
+Pradedamas skaiciavimas su 10000 elementais
+10000 elementu nuskaitymas uztruko: 0.332294 s
+10000 elementu rusiavimas uztruko: 2.54732 s
+
+Pradedamas skaiciavimas su 100000 elementais
+100000 elementu nuskaitymas uztruko: 3.36107 s
+100000 elementu rusiavimas uztruko: 257.1 s
+...
+
+
